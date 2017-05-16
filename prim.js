@@ -7,12 +7,14 @@
     var primElements=[]
     var elementSize=4;
     var maxCost=100;
-    var elements=10;
+    var elements=4;
     var small_1=maxCost;
     var small_2=small_1;
     var index;
     var time= new Date().getTime();
     var test=[]
+    var costs=[]
+    var pointer;
 
     document.addEventListener("DOMContentLoaded",init,false)
     function init(){
@@ -24,36 +26,63 @@
     }
     function prim(){
         if (primStart===true){
-            //first itteration this will create the dots
+            //first iteration this will create the dots
             primStart=false;
             for(var i=0;i<elements;i++){
                 e={
                     x:getRandomNumber(0,width-elementSize),
-                    y:getRandomNumber(0,height-elementSize),
-                    size:elementSize,
-                    cost:getRandomNumber(1,maxCost)
+                    y:getRandomNumber(0,height-elementSize)
+                }
+                costs.push([])
+                for(var j=0;j<elements;j++){
+                    costs[i].push(0)
                 }
                 primElements.push(e);
                 test.push(e.cost)
-                context.fillRect(primElements[i].x,primElements[i].y,primElements[i].size,primElements[i].size);
+                context.fillRect(primElements[i].x,primElements[i].y,elementSize,elementSize);
             }
+
+            console.log(costs)
+
             //drawing lines between all the dots
             for (var i=0;i<primElements.length;i++){
-                for(var j=i; j<primElements.length;j++){
-                                        
-                    context.beginPath();
-                    context.moveTo(primElements[i].x,primElements[i].y);
-                    context.lineTo(primElements[j].x,primElements[j].y);
-                    context.stroke();
+                for(var j=i+1; j<primElements.length;j++){
+                    //add costs for the line part 1 (random cost for new lines)
+                    costs[i][j]=getRandomNumber(1,100)
 
+                    //draw lines
+                    context.beginPath();
+                    context.moveTo(primElements[i].x+elementSize/2,primElements[i].y+elementSize/2);
+                    context.lineTo(primElements[j].x+elementSize/2,primElements[j].y+elementSize/2);
+                    context.stroke();
                 }
+                //add costs to the lines part 2 (existing lines given the correct costs)
+                pointer=0
+                do {
+                    costs[i][pointer]=costs[pointer][i]
+                    pointer++;
+                }
+                while(pointer<i);
+
             }
         }
         
-
+        console.log(costs[0],costs[1],costs[2],costs[3])
         //code for prim
         smallest()
-        console.log(primElements,test)
+       // console.log(primElements,test)
+
+
+// 0=[0,1,2,3]
+// 1=[1,0,8,9]
+// 2=[2,8,0,6]
+// 3=[3,9,6,0]
+
+// 0=[   0,   1,   2,   3]
+// 1=[0[1],   0,   8,   9]
+// 2=[0[2],1[2],   0,   6]
+// 3=[0[3],1[3],2[3],   0]
+
 
     }
     function smallest(){
