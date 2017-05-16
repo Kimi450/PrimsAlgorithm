@@ -7,6 +7,7 @@
     var primElements=[]
     var elementSize=4;
     var maxCost=100;
+    var elements=10;
     var small_1=maxCost;
     var small_2=small_1;
     var index;
@@ -25,7 +26,7 @@
         if (primStart===true){
             //first itteration this will create the dots
             primStart=false;
-            for(var i=0;i<10;i++){
+            for(var i=0;i<elemments;i++){
                 e={
                     x:getRandomNumber(0,width-elementSize),
                     y:getRandomNumber(0,height-elementSize),
@@ -35,6 +36,12 @@
                 primElements.push(e);
                 test.push(e.cost)
                 context.fillRect(primElements[i].x,primElements[i].y,primElements[i].size,primElements[i].size);
+            }
+            //drawing lines between all the dots
+            for (var i=0;i<primElements.length;i++){
+                for(var j=i; j<primElements.length;j++){
+
+                }
             }
         }
         
