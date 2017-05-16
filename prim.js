@@ -26,7 +26,7 @@
         if (primStart===true){
             //first itteration this will create the dots
             primStart=false;
-            for(var i=0;i<elemments;i++){
+            for(var i=0;i<elements;i++){
                 e={
                     x:getRandomNumber(0,width-elementSize),
                     y:getRandomNumber(0,height-elementSize),
@@ -40,6 +40,11 @@
             //drawing lines between all the dots
             for (var i=0;i<primElements.length;i++){
                 for(var j=i; j<primElements.length;j++){
+                                        
+                    context.beginPath();
+                    context.moveTo(primElements[i].x,primElements[i].y);
+                    context.lineTo(primElements[j].x,primElements[j].y);
+                    context.stroke();
 
                 }
             }
