@@ -47,7 +47,8 @@
             for(var j=i+1; j<primElements.length;j++){
 
                 //add costs for the line part 1 (random cost for new lines)
-                costs[i][j]=getRandomNumber(1,maxCost);
+                // costs[i][j]=getRandomNumber(1,maxCost);
+                costs[i][j]=((primElements[j].x-primElements[i].x)**2+(primElements[j].y-primElements[i].y)**2)**0.5
 
                 //draw lines
                 draw(primElements[i].x,primElements[i].y,primElements[j].x,primElements[j].y);
