@@ -7,7 +7,7 @@
     var primElements=[]
     var elementSize=4;
     var maxCost=100;
-    var delay=200;
+    var delay=1;
     var elements=100;
     var small_1=[null,null,maxCost+1];
     var index;
@@ -66,7 +66,6 @@
 
     
         //console.log(costs[0],costs[1],costs[2],costs[3],done)
-        //code for prim
         interval=window.setInterval(prim, delay);
     }
     function prim(){
@@ -98,6 +97,8 @@
         time=new Date().getTime()
     
         if (done.length===primElements.length){
+            var car=Array.from(new Set(done)).sort()
+            console.log(car,done.length,car.length)
             // stop();
         }        
     }
