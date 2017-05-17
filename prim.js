@@ -24,8 +24,7 @@
         width = canvas.width;
         height = canvas.height;
 
-        small_1=[null,null,((width)**2+(height)**2)**0.5];
-        console.log(small_1)
+        small_1=[null,null,((width)**2+(height)**2)];
         //first iteration this will create the dots
         // primElements=[{x:100,y:50},{x:200,y:50},{x:200,y:150},{x:100,y:150}]
 
@@ -90,11 +89,11 @@
             // console.log(small_1+"--------")
             draw(primElements[small_1[0]].x,primElements[small_1[0]].y,primElements[small_1[1]].x,primElements[small_1[1]].y);
             draw(primElements[small_1[0]].x,primElements[small_1[0]].y,primElements[small_1[1]].x,primElements[small_1[1]].y);
-            small_1=[null,null,((width)**2+(height)**2)**0.5];
+            small_1=[null,null,((width)**2+(height)**2)];
         }
         time=new Date().getTime()
             var car=Array.from(new Set(done)).sort()
-            console.log(car,done.length,car.length)
+            // console.log(car,done.length,car.length)
             
         if (done.length===primElements.length){
             stop();
