@@ -51,7 +51,7 @@
                 costs[i][j]=((primElements[j].x-primElements[i].x)**2+(primElements[j].y-primElements[i].y)**2)**0.5
 
                 //draw lines
-                draw(primElements[i].x,primElements[i].y,primElements[j].x,primElements[j].y);
+                // draw(primElements[i].x,primElements[i].y,primElements[j].x,primElements[j].y);
             }
             //add costs to the lines part 2 (existing lines given the correct costs)
             pointer=0;
