@@ -24,81 +24,78 @@
         context=canvas.getContext("2d");
         width = canvas.width;
         height = canvas.height;
-        interval=window.setInterval(start, 1);
-    }
-    function start(){
-        if (primStart===true){
-            //first iteration this will create the dots
-            primStart=false;
-            // primElements=[{x:100,y:50},{x:200,y:50},{x:200,y:150},{x:100,y:150}]
 
-            for(var i=0;i<elements;i++){
-                e={
-                    x:getRandomNumber(0,width-elementSize),
-                    y:getRandomNumber(0,height-elementSize)
-                };
-                costs.push([]);
-                for(var j=0;j<elements;j++){
-                    costs[i].push(0);
-                }
-                 primElements.push(e);
-                context.fillRect(primElements[i].x,primElements[i].y,elementSize,elementSize);
+
+
+        //first iteration this will create the dots
+        // primElements=[{x:100,y:50},{x:200,y:50},{x:200,y:150},{x:100,y:150}]
+
+        for(var i=0;i<elements;i++){
+            e={
+                x:getRandomNumber(0,width-elementSize),
+                y:getRandomNumber(0,height-elementSize)
+            };
+            costs.push([]);
+            for(var j=0;j<elements;j++){
+                costs[i].push(0);
             }
-            //drawing lines between all the dots
-            for (var i=0;i<primElements.length;i++){
-                for(var j=i+1; j<primElements.length;j++){
-
-                    //add costs for the line part 1 (random cost for new lines)
-                    costs[i][j]=getRandomNumber(1,maxCost);
-
-                    //draw lines
-                    draw(primElements[i].x,primElements[i].y,primElements[j].x,primElements[j].y);
-                }
-                //add costs to the lines part 2 (existing lines given the correct costs)
-                pointer=0;
-                do {
-                    costs[i][pointer]=costs[pointer][i];
-                    pointer++;
-                }
-                while(pointer<i);
-            }
-            // costs=[[0,5,1,2],[5,0,3,2],[1,3,0,3],[2,2,3,0]]
-            context.strokeStyle = '#ffffff';
+                primElements.push(e);
+            context.fillRect(primElements[i].x,primElements[i].y,elementSize,elementSize);
         }
-        
+        //drawing lines between all the dots
+        for (var i=0;i<primElements.length;i++){
+            for(var j=i+1; j<primElements.length;j++){
+
+                //add costs for the line part 1 (random cost for new lines)
+                costs[i][j]=getRandomNumber(1,maxCost);
+
+                //draw lines
+                draw(primElements[i].x,primElements[i].y,primElements[j].x,primElements[j].y);
+            }
+            //add costs to the lines part 2 (existing lines given the correct costs)
+            pointer=0;
+            do {
+                costs[i][pointer]=costs[pointer][i];
+                pointer++;
+            }
+            while(pointer<i);
+        }
+        // costs=[[0,5,1,2],[5,0,3,2],[1,3,0,3],[2,2,3,0]]
+        context.strokeStyle = '#ffffff';
+
+    
         //console.log(costs[0],costs[1],costs[2],costs[3],done)
         //code for prim
-        prim();
+        interval=window.setInterval(prim, delay);
     }
     function prim(){
 
         //i=starting elementS
         //j=destination element
-        var currTime= new Date().getTime()
-        if(currTime>=time+delay){
-            pusher=false;
-            for(var i=0;i<done.length;i++){
-                // console.log(i)
-                for (var j=0;j<primElements.length;j++){//was j=done[i]+1 and that broke it
-                    if(costs[done[i]][j]<=small_1[2] && !(done.indexOf(j)>-1)){
-                        // console.log("if ",costs[done[i]][j],small_1[2])
-                        small_1=[done[i],j,costs[done[i]][j]];
-                        pusher=true;
-                    }
+        
+        pusher=false;
+        for(var i=0;i<done.length;i++){
+            // console.log(i)
+            for (var j=0;j<primElements.length;j++){//was j=done[i]+1 and that broke it
+                if(costs[done[i]][j]<=small_1[2] && !(done.indexOf(j)>-1)){
+                    // console.log("if ",costs[done[i]][j],small_1[2])
+                    small_1=[done[i],j,costs[done[i]][j]];
+                    pusher=true;
                 }
             }
-            // console.log("after if",pusher,small_1)
-            cost+=small_1[2];
-            if (pusher){
-                done.push(small_1[1]);
-                context.strokeStyle = '#ffffff';
-                // console.log(small_1+"--------")
-                draw(primElements[small_1[0]].x,primElements[small_1[0]].y,primElements[small_1[1]].x,primElements[small_1[1]].y);
-                draw(primElements[small_1[0]].x,primElements[small_1[0]].y,primElements[small_1[1]].x,primElements[small_1[1]].y);
-                small_1=[null,null,maxCost+1];
-            }
-            time=new Date().getTime()
         }
+        // console.log("after if",pusher,small_1)
+        cost+=small_1[2];
+        if (pusher){
+            done.push(small_1[1]);
+            context.strokeStyle = '#ffffff';
+            // console.log(small_1+"--------")
+            draw(primElements[small_1[0]].x,primElements[small_1[0]].y,primElements[small_1[1]].x,primElements[small_1[1]].y);
+            draw(primElements[small_1[0]].x,primElements[small_1[0]].y,primElements[small_1[1]].x,primElements[small_1[1]].y);
+            small_1=[null,null,maxCost+1];
+        }
+        time=new Date().getTime()
+    
         if (done.length===primElements.length){
             stop();
         }        
