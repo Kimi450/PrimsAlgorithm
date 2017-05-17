@@ -15,7 +15,6 @@
     var costs=[]
     var pointer;
     var done=[0];
-    var pusher
 
     document.addEventListener("DOMContentLoaded",init,false)
     function init(){
@@ -63,7 +62,6 @@
         context.strokeStyle = '#ffffff';
 
     
-        //console.log(costs[0],costs[1],costs[2],costs[3],done)
         interval=window.setInterval(prim, delay);
     }
     function prim(){
@@ -71,33 +69,22 @@
         //i=starting elementS
         //j=destination element
         
-        pusher=false;
         for(var i=0;i<done.length;i++){
-            // console.log(i)
             for (var j=0;j<primElements.length;j++){//was j=done[i]+1 and that broke it
                 if(costs[done[i]][j]<=small_1[2]&&!(done.includes(j))){
-                    // console.log("if ",costs[done[i]][j],small_1[2])
                     small_1=[done[i],j,costs[done[i]][j]];
-                    pusher=true;
                 }
             }
         }
-        // console.log("after if",pusher,small_1)
-        if (pusher){
-            done.push(small_1[1]);
-            context.strokeStyle = '#ffffff';
-            // console.log(small_1+"--------")
-            draw(primElements[small_1[0]].x,primElements[small_1[0]].y,primElements[small_1[1]].x,primElements[small_1[1]].y);
-            draw(primElements[small_1[0]].x,primElements[small_1[0]].y,primElements[small_1[1]].x,primElements[small_1[1]].y);
-            small_1=[null,null,((width)**2+(height)**2)];
-        }
+        done.push(small_1[1]);
+        context.strokeStyle = '#ffffff';
+        draw(primElements[small_1[0]].x,primElements[small_1[0]].y,primElements[small_1[1]].x,primElements[small_1[1]].y);
+        draw(primElements[small_1[0]].x,primElements[small_1[0]].y,primElements[small_1[1]].x,primElements[small_1[1]].y);
+        small_1=[null,null,((width)**2+(height)**2)];
         time=new Date().getTime()
-            var car=Array.from(new Set(done)).sort()
-            // console.log(car,done.length,car.length)
-            
         if (done.length===primElements.length){
             stop();
-        }        
+        }         
     }
     
     function stop(){
