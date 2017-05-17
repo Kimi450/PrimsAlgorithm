@@ -6,15 +6,14 @@
     var primStart=true;
     var primElements=[]
     var elementSize=4;
-    var maxCost=100;
-    var delay=1;
-    var elements=100;
-    var small_1=[null,null,maxCost+1];
+    // var maxCost=100;
+    var delay=8;
+    var elements=320;
+    var small_1;
     var index;
     var time= new Date().getTime();
     var costs=[]
     var pointer;
-    var cost=0;
     var done=[0];
     var pusher
 
@@ -25,8 +24,8 @@
         width = canvas.width;
         height = canvas.height;
 
-
-
+        small_1=[null,null,((width)**2+(height)**2)**0.5];
+        console.log(small_1)
         //first iteration this will create the dots
         // primElements=[{x:100,y:50},{x:200,y:50},{x:200,y:150},{x:100,y:150}]
 
@@ -77,7 +76,7 @@
         for(var i=0;i<done.length;i++){
             // console.log(i)
             for (var j=0;j<primElements.length;j++){//was j=done[i]+1 and that broke it
-                if(costs[done[i]][j]<=small_1[2] && !(done.indexOf(j)>-1)){
+                if(costs[done[i]][j]<=small_1[2]&&!(done.includes(j))){
                     // console.log("if ",costs[done[i]][j],small_1[2])
                     small_1=[done[i],j,costs[done[i]][j]];
                     pusher=true;
@@ -85,21 +84,20 @@
             }
         }
         // console.log("after if",pusher,small_1)
-        cost+=small_1[2];
-        if (pusher && !(done.includes(small_1[1]))){
+        if (pusher){
             done.push(small_1[1]);
             context.strokeStyle = '#ffffff';
             // console.log(small_1+"--------")
             draw(primElements[small_1[0]].x,primElements[small_1[0]].y,primElements[small_1[1]].x,primElements[small_1[1]].y);
             draw(primElements[small_1[0]].x,primElements[small_1[0]].y,primElements[small_1[1]].x,primElements[small_1[1]].y);
-            small_1=[null,null,maxCost+1];
+            small_1=[null,null,((width)**2+(height)**2)**0.5];
         }
         time=new Date().getTime()
-    
-        if (done.length===primElements.length){
             var car=Array.from(new Set(done)).sort()
             console.log(car,done.length,car.length)
-            // stop();
+            
+        if (done.length===primElements.length){
+            stop();
         }        
     }
     
