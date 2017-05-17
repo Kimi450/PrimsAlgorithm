@@ -87,7 +87,7 @@
         }
         // console.log("after if",pusher,small_1)
         cost+=small_1[2];
-        if (pusher){
+        if (pusher && !(done.includes(small_1[1]))){
             done.push(small_1[1]);
             context.strokeStyle = '#ffffff';
             // console.log(small_1+"--------")
@@ -98,7 +98,7 @@
         time=new Date().getTime()
     
         if (done.length===primElements.length){
-            stop();
+            // stop();
         }        
     }
     
