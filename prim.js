@@ -76,13 +76,13 @@
                 }
             }
         }
+        if (done.length===primElements.length){
+            stop();
+        }   
         done.push(small_1[1]);
         context.strokeStyle = '#ffffff';
         draw(primElements[small_1[0]].x,primElements[small_1[0]].y,primElements[small_1[1]].x,primElements[small_1[1]].y);
-        draw(primElements[small_1[0]].x,primElements[small_1[0]].y,primElements[small_1[1]].x,primElements[small_1[1]].y);
-        if (done.length===primElements.length){
-            stop();
-        }         
+        draw(primElements[small_1[0]].x,primElements[small_1[0]].y,primElements[small_1[1]].x,primElements[small_1[1]].y);      
         small_1=[null,null,((width)**2+(height)**2)];
         time=new Date().getTime()
     }
